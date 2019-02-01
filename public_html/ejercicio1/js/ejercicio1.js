@@ -3,6 +3,7 @@
  */
 
 import { Inmobiliaria } from './inmobiliaria.js'
+import { Propietario } from './propietario.js';
 let inmobiliaria = new Inmobiliaria();
 
 
@@ -56,8 +57,16 @@ function generarVista(edificio) {
             let divPropietario = document.createElement('div');
             divPropietario.classList.add('propietario');
             divPropietario.classList.add(clase);
-            let textoPropietario = document.createTextNode('Propietario');
-            divPropietario.appendChild(textoPropietario);
+
+            //Saber si el piso esta ocupado o vacío
+            if (edificio.getPropietario(planta, puerta) instanceof Propietario) {
+                let propietario = edificio.getPropietario(planta, puerta);
+                generarVistaPropietario(divPropietario, propietario);
+            } else {
+                generarVistaPisoVacio(divPropietario);
+            }
+            //let textoPropietario = document.createTextNode('Propietario');
+            //divPropietario.appendChild(textoPropietario);
             divPlanta.appendChild(divPropietario);
 
         }
@@ -70,31 +79,61 @@ function generarVista(edificio) {
 
 
 /**
- * Genera los elementos para la vista de los propietarios.
+ * Genera la vista de los pisos ocupados.
  * @param {Element} nodoPadre 
  */
-function generarVistaPropietario(nodoPadre, genero) {
+function generarVistaPropietario(nodoPadre, propietario) {
+    console.log('--------------propietario------' + propietario.tamFamilia);
+    let { nombre, genero, tamFamilia } = propietario;
     //creamos parrafo
     let parrafoNombre = document.createElement('p');
-    let txtNombre = document.createTextNode('nombre');
+    let txtNombre = document.createTextNode(nombre);
     parrafoNombre.appendChild(txtNombre);
 
     //creamos imagen
     let imagen = document.createElement('img');
     //Añadimos el atributo en función del genero del propietario
-    switch (genero) {
-        case 'hombre':
-            imagen.src = '../img/hombre.jpg';
+    console.log('-------genero--', genero, tamFamilia);
+    switch (tamFamilia) {
+        case 1:
+            if (genero == 'hombre') imagen.src = './img/hombre.jpg';
+            else imagen.src = './img/mujer.jpg';
             break;
-        case 'mujer':
-            imagen.src = '../img/mujer.jpg';
+        case 2:
+            imagen.src = './img/pareja.jpg';
+            break;
+        case 3:
+            imagen.src = './img/familia-1.jpg';
+            break;
+        case 4:
+            imagen.src = './img/familia-2.jpg';
             break;
 
         default:
+            imagen.src = './img/familia-2.jpg';
             break;
     }
 
 
+    //Añadimos al elemento padre
+    nodoPadre.appendChild(parrafoNombre);
+    nodoPadre.appendChild(imagen);
+
+}
+
+/**
+ * Genera la vista para los pisos vacios
+ * @param {Element} nodoPadre 
+ */
+function generarVistaPisoVacio(nodoPadre) {
+    //creamos parrafo
+    let parrafoNombre = document.createElement('p');
+    let txtNombre = document.createTextNode('vacio');
+    parrafoNombre.appendChild(txtNombre);
+
+    //creamos imagen
+    let imagen = document.createElement('img');
+    imagen.src = './img/vacio.jpg';
     //Añadimos al elemento padre
     nodoPadre.appendChild(parrafoNombre);
     nodoPadre.appendChild(imagen);

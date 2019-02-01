@@ -100,8 +100,8 @@ class Edificio {
          * Devuelve el propietario identificado por planta y puerta
          */
     getPropietario(planta, puerta) {
-        if (planta <= 0 || puerta <= 0) return false; //Compruebo por debajo , pero por arriba tendrá que hacerse antes de llamar al método
-        return this._plantas[planta - 1][puerta - 1]; //Lo del menos uno es porque la matriz está rellena desde el (0,0)
+        if (planta < 0 || puerta < 0) return false; //Compruebo por debajo , pero por arriba tendrá que hacerse antes de llamar al método
+        return this._plantas[planta][puerta];
     }
 
     getPlantas() {
