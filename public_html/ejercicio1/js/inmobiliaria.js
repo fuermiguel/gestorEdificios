@@ -21,7 +21,7 @@ class Inmobiliaria {
          * o null si no existe.
          */
     getEdificio(calle, numero) {
-            console.log(calle, numero);
+
             for (const edificio of this._edificios) {
                 if (edificio.getCalle() == calle && edificio.getNumero() == numero) return edificio;
             }
@@ -33,7 +33,6 @@ class Inmobiliaria {
     cargaDatos() {
         for (let i = 0; i < edificiosImportar.length; i++) {
             let edificioImportar = edificiosImportar[i];
-            // console.log(new Edificio());
 
             let edificio = new Edificio('',
                 edificioImportar.calle,
@@ -64,7 +63,7 @@ class Inmobiliaria {
 
         }
 
-        console.table(this._edificios);
+        // console.table(this._edificios);
     }
 
 };

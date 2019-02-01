@@ -17,7 +17,6 @@ generarVista(edificio1);
 
 function generarVista(edificio) {
 
-    console.table(edificio);
 
     let divEdificio = document.createElement('div');
     divEdificio.className = 'edificio';
@@ -83,7 +82,7 @@ function generarVista(edificio) {
  * @param {Element} nodoPadre 
  */
 function generarVistaPropietario(nodoPadre, propietario, planta, puerta) {
-    console.log('--------------propietario------' + propietario.tamFamilia);
+
     let { nombre, genero, tamFamilia } = propietario;
     //creamos parrafo
     let parrafoNombre = document.createElement('p');
@@ -93,7 +92,7 @@ function generarVistaPropietario(nodoPadre, propietario, planta, puerta) {
     //creamos imagen
     let imagen = document.createElement('img');
     //Añadimos el atributo en función del genero del propietario
-    console.log('-------genero--', genero, tamFamilia);
+
     switch (tamFamilia) {
         case 1:
             if (genero == 'hombre') imagen.src = './img/hombre.jpg';
@@ -148,7 +147,7 @@ function generarVistaPropietario(nodoPadre, propietario, planta, puerta) {
 
     btnBorrar.addEventListener('click', function(event) {
         //Tenemos la posibilidad de obtener la planta y el piso por si nos hiciera falta.
-        console.log(event.target.getAttribute('planta'), event.target.getAttribute('puerta'));
+        // console.log(event.target.getAttribute('planta'), event.target.getAttribute('puerta'));
 
         //Capturamos el elemento padre 
         let divPropietario = event.target.parentElement.parentElement;
@@ -200,6 +199,16 @@ function generarVistaPisoVacio(nodoPadre) {
 
     //Aádimos los eventos
     btnAniadir.addEventListener('click', function() {
+        let formulario = document.getElementById('formulario');
+        let btnModificar = document.getElementById('formulario-modificar');
+        let btnCerrar = document.getElementById('formulario-borrar');
+
+        formulario.style.display = 'block';
+        btnModificar.hidden = true;
+
+        btnCerrar.addEventListener('click', function() {
+            formulario.style.display = 'none';
+        })
 
     })
 

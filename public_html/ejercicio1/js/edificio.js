@@ -23,7 +23,6 @@ class Edificio {
         if (plantas.length > 4) nPuertas = 4;
 
         for (let i = plantas.length - 1; i >= 0; i--) {
-            // console.log(plantas, plantas[i]);
             this._plantas.push(new Array(plantas[i]));
             //relleno con null el último que he metido
             for (let j = 0; j < this._plantas[this._plantas.length - 1].length; j++) {
