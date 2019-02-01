@@ -61,7 +61,7 @@ function generarVista(edificio) {
             //Saber si el piso esta ocupado o vacío
             if (edificio.getPropietario(planta, puerta) instanceof Propietario) {
                 let propietario = edificio.getPropietario(planta, puerta);
-                generarVistaPropietario(divPropietario, propietario);
+                generarVistaPropietario(divPropietario, propietario, planta, puerta);
             } else {
                 generarVistaPisoVacio(divPropietario);
             }
@@ -82,7 +82,7 @@ function generarVista(edificio) {
  * Genera la vista de los pisos ocupados.
  * @param {Element} nodoPadre 
  */
-function generarVistaPropietario(nodoPadre, propietario) {
+function generarVistaPropietario(nodoPadre, propietario, planta, puerta) {
     console.log('--------------propietario------' + propietario.tamFamilia);
     let { nombre, genero, tamFamilia } = propietario;
     //creamos parrafo
@@ -125,6 +125,10 @@ function generarVistaPropietario(nodoPadre, propietario) {
     //Creamos boton borrar
     let btnBorrar = document.createElement('button');
     btnBorrar.classList.add('borrar');
+    btnBorrar.setAttribute('planta', planta);
+    btnBorrar.setAttribute('puerta', puerta);
+
+
     let txtBorrar = document.createTextNode('Borrar');
     btnBorrar.appendChild(txtBorrar);
     //Añadimos los botones a div botones
@@ -142,8 +146,22 @@ function generarVistaPropietario(nodoPadre, propietario) {
         //
     })
 
-    btnBorrar.addEventListener('click', function() {
-        //Borra el propietario y muestra el piso vacio
+    btnBorrar.addEventListener('click', function(event) {
+        //Tenemos la posibilidad de obtener la planta y el piso por si nos hiciera falta.
+        console.log(event.target.getAttribute('planta'), event.target.getAttribute('puerta'));
+
+        //Capturamos el elemento padre 
+        let divPropietario = event.target.parentElement.parentElement;
+
+        //Borramos todos sus hijos
+        while (divPropietario.hasChildNodes()) {
+            divPropietario.removeChild(divPropietario.firstChild);
+        }
+
+        //Generamos una nueva vista, es este caso de piso vacío
+        generarVistaPisoVacio(divPropietario);
+
+
     })
 
 }
