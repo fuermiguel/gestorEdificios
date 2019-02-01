@@ -22,7 +22,7 @@ function generarVista(edificio) {
     divEdificio.className = 'edificio';
     let cabecera = document.createElement('h1');
     let textoEdificio = document.createTextNode(
-        `C\ ${edificio.getCalle()} nº ${edificio.getNumero()} . ${edificio.getCP()}`);
+        `C\\ ${edificio.getCalle()} nº ${edificio.getNumero()} . ${edificio.getCP()}`);
 
     cabecera.appendChild(textoEdificio);
     divEdificio.appendChild(cabecera);
@@ -158,7 +158,7 @@ function generarVistaPropietario(nodoPadre, propietario, planta, puerta) {
         }
 
         //Generamos una nueva vista, es este caso de piso vacío
-        generarVistaPisoVacio(divPropietario);
+        generarVistaPisoVacio(divPropietario, planta, puerta);
 
 
     })
@@ -206,9 +206,16 @@ function generarVistaPisoVacio(nodoPadre, planta, puerta) {
         let formulario = document.getElementById('formulario');
         let btnModificar = document.getElementById('formulario-modificar');
         let btnCerrar = document.getElementById('formulario-borrar');
+        let txtPuerta = document.getElementById('puerta');
+        let txtPlanta = document.getElementById('planta');
 
+        //Inicializo elementos
         formulario.style.display = 'block';
         btnModificar.hidden = true;
+        txtPlanta.value = planta + 1;
+        txtPuerta.value = puerta + 1;
+
+
 
         btnCerrar.addEventListener('click', function() {
             formulario.style.display = 'none';
