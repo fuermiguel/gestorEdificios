@@ -114,10 +114,37 @@ function generarVistaPropietario(nodoPadre, propietario) {
             break;
     }
 
+    //Creamos div botones
+    let divBotones = document.createElement('div');
+    divBotones.classList.add('botones');
+    //Creamos boton modificar
+    let btnModificar = document.createElement('button');
+    btnModificar.classList.add('modificar');
+    let txtModificar = document.createTextNode('Modificar');
+    btnModificar.appendChild(txtModificar);
+    //Creamos boton borrar
+    let btnBorrar = document.createElement('button');
+    btnBorrar.classList.add('borrar');
+    let txtBorrar = document.createTextNode('Borrar');
+    btnBorrar.appendChild(txtBorrar);
+    //Añadimos los botones a div botones
+    divBotones.appendChild(btnModificar);
+    divBotones.appendChild(btnBorrar);
 
-    //Añadimos al elemento padre
+
+    //Añadimos todo lo creado al elemento padre pasado coo parámetro
     nodoPadre.appendChild(parrafoNombre);
     nodoPadre.appendChild(imagen);
+    nodoPadre.appendChild(divBotones);
+
+    //generamos los eventos
+    btnModificar.addEventListener('click', function() {
+        //
+    })
+
+    btnBorrar.addEventListener('click', function() {
+        //Borra el propietario y muestra el piso vacio
+    })
 
 }
 
@@ -134,8 +161,28 @@ function generarVistaPisoVacio(nodoPadre) {
     //creamos imagen
     let imagen = document.createElement('img');
     imagen.src = './img/vacio.jpg';
+
+    //Creamos div botones
+    let divBotones = document.createElement('div');
+    divBotones.classList.add('botones');
+
+    //Creamos boton Aniadir
+    let btnAniadir = document.createElement('button');
+    btnAniadir.classList.add('aniadir');
+    let txtAniadir = document.createTextNode('Añadir');
+    btnAniadir.appendChild(txtAniadir);
+
+    //Añadimos el boton a div botobes
+    divBotones.appendChild(btnAniadir);
+
     //Añadimos al elemento padre
     nodoPadre.appendChild(parrafoNombre);
     nodoPadre.appendChild(imagen);
+    nodoPadre.appendChild(divBotones);
+
+    //Aádimos los eventos
+    btnAniadir.addEventListener('click', function() {
+
+    })
 
 }
