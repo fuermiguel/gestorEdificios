@@ -62,7 +62,7 @@ function generarVista(edificio) {
                 let propietario = edificio.getPropietario(planta, puerta);
                 generarVistaPropietario(divPropietario, propietario, planta, puerta);
             } else {
-                generarVistaPisoVacio(divPropietario);
+                generarVistaPisoVacio(divPropietario, planta, puerta);
             }
             //let textoPropietario = document.createTextNode('Propietario');
             //divPropietario.appendChild(textoPropietario);
@@ -169,7 +169,9 @@ function generarVistaPropietario(nodoPadre, propietario, planta, puerta) {
  * Genera la vista para los pisos vacios
  * @param {Element} nodoPadre 
  */
-function generarVistaPisoVacio(nodoPadre) {
+
+//Tengo que añadir el piso y la  puerta
+function generarVistaPisoVacio(nodoPadre, planta, puerta) {
     //creamos parrafo
     let parrafoNombre = document.createElement('p');
     let txtNombre = document.createTextNode('vacio');
@@ -186,6 +188,8 @@ function generarVistaPisoVacio(nodoPadre) {
     //Creamos boton Aniadir
     let btnAniadir = document.createElement('button');
     btnAniadir.classList.add('aniadir');
+    btnAniadir.setAttribute('planta', planta);
+    btnAniadir.setAttribute('puerta', puerta);
     let txtAniadir = document.createTextNode('Añadir');
     btnAniadir.appendChild(txtAniadir);
 
