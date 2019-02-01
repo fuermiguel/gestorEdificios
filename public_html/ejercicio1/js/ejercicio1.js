@@ -84,6 +84,7 @@ function generarVista(edificio) {
 function generarVistaPropietario(nodoPadre, propietario, planta, puerta) {
 
     let { nombre, genero, tamFamilia } = propietario;
+
     //creamos parrafo
     let parrafoNombre = document.createElement('p');
     let txtNombre = document.createTextNode(nombre);
@@ -150,6 +151,8 @@ function generarVistaPropietario(nodoPadre, propietario, planta, puerta) {
         // console.log(event.target.getAttribute('planta'), event.target.getAttribute('puerta'));
 
         //Capturamos el elemento padre 
+        //Hay dos maneras. Desde el event o guardando el nodoPadre para cada boton
+        //En el formulario al ser modal no puedo acceder desde el event del boton.
         let divPropietario = event.target.parentElement.parentElement;
 
         //Borramos todos sus hijos
@@ -203,11 +206,18 @@ function generarVistaPisoVacio(nodoPadre, planta, puerta) {
 
     //Aádimos los eventos
     btnAniadir.addEventListener('click', function() {
+        let nodoPadreFormulario = nodoPadre; //Guardo el nodo padre para cada boton añadir
+
         let formulario = document.getElementById('formulario');
         let btnModificar = document.getElementById('formulario-modificar');
+        let btnAniadir = document.getElementById('formulario-aniadir');
         let btnCerrar = document.getElementById('formulario-borrar');
         let txtPuerta = document.getElementById('puerta');
         let txtPlanta = document.getElementById('planta');
+        let txtNombre = document.getElementById('nombre');
+        let rdHombre = document.getElementById('genero-hombre');
+        //let rdMujer = document.getElementById('genero-mujer');
+        let optMiembros = document.getElementById('unidad-familiar');
 
         //Inicializo elementos
         formulario.style.display = 'block';
@@ -215,8 +225,54 @@ function generarVistaPisoVacio(nodoPadre, planta, puerta) {
         txtPlanta.value = planta + 1;
         txtPuerta.value = puerta + 1;
 
+        //Definimos el evento para el boton añadir
+        btnAniadir.addEventListener('click', function() {
 
+            //Borramos todos sus hijos
+            while (nodoPadreFormulario.hasChildNodes()) {
+                nodoPadreFormulario.removeChild(nodoPadreFormulario.firstChild);
+            }
 
+            //Creamos una variable donde almacenar el genero seún el radiobuttom seleccionado
+            let genero = 'hombre';
+            //Capturamos el genero
+            if (rdHombre.checked) genero = 'hombre';
+            else genero = 'mujer';
+
+            //Creamos una variable miembros
+            let miembros = 0;
+            //Le damos un valor en función de lo seleccionado
+            switch (optMiembros.value) {
+                case 'soltero':
+                    miembros = 1;
+                    break;
+                case 'pareja':
+                    miembros = 2;
+
+                    break;
+                case 'familia-1':
+
+                    miembros = 3;
+                    break;
+                case 'familia-2':
+
+                    miembros = 4;
+                    break;
+
+                default:
+                    miembros = 4;
+                    break;
+            }
+
+            //Generamos un propietario
+            let nuevoPropietario = new Propietario(txtNombre.value, genero, miembros);
+            //Creamos la nueva vista
+            generarVistaPropietario(nodoPadre, nuevoPropietario, txtPlanta.value, txtPuerta.value)
+                //Cerramos el formularios
+            formulario.style.display = 'none';
+        })
+
+        //Definimos el evento para el boton cerrar
         btnCerrar.addEventListener('click', function() {
             formulario.style.display = 'none';
         })
