@@ -10,13 +10,13 @@ let inmobiliaria = new Inmobiliaria();
 inmobiliaria.cargaDatos();
 
 let edificio1 = inmobiliaria.getEdificio("General Yagüe", 2);
-//let edificio2 = inmobiliaria.getEdificio("Primero de Mayo", 1);
-//let edificio3 = inmobiliaria.getEdificio("Paseo de Pereda", 5);
+let edificio2 = inmobiliaria.getEdificio("Primero de Mayo", 1);
+let edificio3 = inmobiliaria.getEdificio("Paseo de Pereda", 5);
 
 
 generarVista(edificio1);
-//generarVista(edificio2);
-//generarVista(edificio3);
+generarVista(edificio2);
+generarVista(edificio3);
 
 
 function generarVista(edificio) {
@@ -196,38 +196,6 @@ function generarVistaPropietario(nodoPadre, propietario, planta, puerta) {
 
             generarVistaPropietario(nodoPadreModificarFormulario, propietarioModificarFormulario, planta, puerta)
 
-            // //creamos parrafo modificado
-            // let parrafoNombreModificar = document.createElement('p');
-            // let nombreModificar = document.createTextNode(propietarioModificarFormulario.nombre);
-            // parrafoNombreModificar.appendChild(nombreModificar);
-
-            // //Modificar los hijos del nodo padre
-            // let elementos = nodoPadreModificarFormulario.children;
-            // nodoPadreModificarFormulario.replaceChild(parrafoNombreModificar, elementos[0]);
-
-            // //creamos imagen
-            // let imagenModificar = document.createElement('img');
-            // //Añadimos el atributo en función del genero del propietario
-
-            // switch (propietarioModificarFormulario.tamFamilia) {
-            //     case 1:
-            //         if (propietarioModificarFormulario.genero == 'hombre') imagenModificar.src = './img/hombre.jpg';
-            //         else imagenModificar.src = './img/mujer.jpg';
-            //         break;
-            //     case 2:
-            //         imagenModificar.src = './img/pareja.jpg';
-            //         break;
-            //     case 3:
-            //         imagenModificar.src = './img/familia-1.jpg';
-            //         break;
-            //     case 4:
-            //         imagenModificar.src = './img/familia-2.jpg';
-            //         break;
-
-            //     default:
-            //         imagenModificar.src = './img/familia-2.jpg';
-            //         break;
-            // }
 
             // nodoPadreModificarFormulario.replaceChild(imagenModificar, elementos[1]);
             // //Cerramos el formularios
