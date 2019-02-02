@@ -10,9 +10,13 @@ let inmobiliaria = new Inmobiliaria();
 inmobiliaria.cargaDatos();
 
 let edificio1 = inmobiliaria.getEdificio("General Yagüe", 2);
+//let edificio2 = inmobiliaria.getEdificio("Primero de Mayo", 1);
+//let edificio3 = inmobiliaria.getEdificio("Paseo de Pereda", 5);
 
 
 generarVista(edificio1);
+//generarVista(edificio2);
+//generarVista(edificio3);
 
 
 function generarVista(edificio) {
@@ -143,7 +147,101 @@ function generarVistaPropietario(nodoPadre, propietario, planta, puerta) {
 
     //generamos los eventos
     btnModificar.addEventListener('click', function() {
-        //
+        //Información necesaria para la carga de datos del formulario
+        let nodoPadreModificar = nodoPadre;
+        let propietarioModificar = propietario;
+        let { nombre, genero, tamFamilia } = propietario;
+
+        //Elementos del formulario
+        let formulario = document.getElementById('formulario');
+        let btnModificar = document.getElementById('formulario-modificar');
+        let btnAniadir = document.getElementById('formulario-aniadir');
+        let btnCerrar = document.getElementById('formulario-borrar');
+        let txtPuerta = document.getElementById('puerta');
+        let txtPlanta = document.getElementById('planta');
+        let txtNombre = document.getElementById('nombre');
+        let rdHombre = document.getElementById('genero-hombre');
+        let rdMujer = document.getElementById('genero-mujer');
+        let optMiembros = document.getElementById('unidad-familiar');
+
+        //Inicializo elementos
+        formulario.style.display = 'block';
+        btnModificar.hidden = false;
+        btnAniadir.hidden = true;
+
+        //Rellenamos los campos
+        txtNombre.value = nombre;
+        if (genero == 'mujer') rdMujer.checked = true;
+        else rdHombre.checked = true;
+        optMiembros.selectedIndex = tamFamilia;
+
+
+        btnModificar.addEventListener('click', function() {
+            let plataModificar = planta;
+            let puertaModificar = puerta;
+            let formularioModificar = formulario;
+            let nodoPadreModificarFormulario = nodoPadre;
+            let propietarioModificarFormulario = {
+                nombre: txtNombre.value,
+                genero: (rdHombre.checked) ? 'hombre' : 'mujer',
+                tamFamilia: optMiembros.selectedIndex
+            }
+            console.log(nodoPadreModificarFormulario);
+
+
+            //Borramos todos sus hijos
+            while (nodoPadreModificarFormulario.hasChildNodes()) {
+                nodoPadreModificarFormulario.removeChild(nodoPadreModificarFormulario.firstChild);
+            }
+
+            generarVistaPropietario(nodoPadreModificarFormulario, propietarioModificarFormulario, planta, puerta)
+
+            // //creamos parrafo modificado
+            // let parrafoNombreModificar = document.createElement('p');
+            // let nombreModificar = document.createTextNode(propietarioModificarFormulario.nombre);
+            // parrafoNombreModificar.appendChild(nombreModificar);
+
+            // //Modificar los hijos del nodo padre
+            // let elementos = nodoPadreModificarFormulario.children;
+            // nodoPadreModificarFormulario.replaceChild(parrafoNombreModificar, elementos[0]);
+
+            // //creamos imagen
+            // let imagenModificar = document.createElement('img');
+            // //Añadimos el atributo en función del genero del propietario
+
+            // switch (propietarioModificarFormulario.tamFamilia) {
+            //     case 1:
+            //         if (propietarioModificarFormulario.genero == 'hombre') imagenModificar.src = './img/hombre.jpg';
+            //         else imagenModificar.src = './img/mujer.jpg';
+            //         break;
+            //     case 2:
+            //         imagenModificar.src = './img/pareja.jpg';
+            //         break;
+            //     case 3:
+            //         imagenModificar.src = './img/familia-1.jpg';
+            //         break;
+            //     case 4:
+            //         imagenModificar.src = './img/familia-2.jpg';
+            //         break;
+
+            //     default:
+            //         imagenModificar.src = './img/familia-2.jpg';
+            //         break;
+            // }
+
+            // nodoPadreModificarFormulario.replaceChild(imagenModificar, elementos[1]);
+            // //Cerramos el formularios
+            formularioModificar.style.display = 'none';
+
+        })
+
+
+        //Definimos el evento para el boton cerrar
+        btnCerrar.addEventListener('click', function() {
+            formulario.style.display = 'none';
+        })
+
+
     })
 
     btnBorrar.addEventListener('click', function(event) {
@@ -222,6 +320,7 @@ function generarVistaPisoVacio(nodoPadre, planta, puerta) {
         //Inicializo elementos
         formulario.style.display = 'block';
         btnModificar.hidden = true;
+        btnAniadir.hidden = false;
         txtPlanta.value = planta + 1;
         txtPuerta.value = puerta + 1;
 
